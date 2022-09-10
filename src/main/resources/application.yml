@@ -1,0 +1,21 @@
+#spring.batch.job.enabled=false
+input: file:students.csv
+spring:
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    username: ea
+    password: cs544
+    url: jdbc:mysql://localhost:3306/job
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
