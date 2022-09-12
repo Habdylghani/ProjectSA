@@ -1,5 +1,9 @@
 package com.sa.firstprojectsa.Control;
 
+import com.sa.firstprojectsa.model.User;
+import com.sa.firstprojectsa.service.UserService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
@@ -8,16 +12,15 @@ import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
 import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
 import org.springframework.batch.core.repository.JobRestartException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api")
+@Slf4j @RequiredArgsConstructor
 public class StudentController {
-    @Autowired
     private JobLauncher launcher;
-    @Autowired
     private Job job;
+    private UserService userService;
     @GetMapping("/add")
     public void maigrate(){
         JobParameters jobParameters=new JobParametersBuilder()
@@ -28,6 +31,10 @@ public class StudentController {
                 JobParametersInvalidException e) {
             e.printStackTrace();
         }
+    }
+    @PostMapping("/user/save/adduser")
+    public User saveUser(@RequestBody User user){
+        return userService.addUser(user);
     }
 
 }
