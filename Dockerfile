@@ -1,3 +1,5 @@
-FROM openjdk:17-oracle
-COPY target/mini-project.jar mini-project.jar
-ENTRYPOINT ["java","-jar","/mini-project.jar"]
+FROM maven:3.8.3-openjdk-17
+WORKDIR /bezkoder-app
+COPY . .
+RUN mvn clean install
+CMD mvn spring-boot:run
